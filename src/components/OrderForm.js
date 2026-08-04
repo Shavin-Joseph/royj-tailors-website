@@ -21,7 +21,7 @@ const SubmitButton = styled.button`
 const CustomFieldsWrapper = styled.div` display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; `;
 
 const OrderForm = ({ product, phoneNumber, cargoConfig }) => {
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
 
   const isShirt = product.type.includes('shirt');
   const isCargo = product.type === 'cargo-trousers';
