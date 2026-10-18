@@ -47,14 +47,20 @@ test('saved pieces survive a remount and can be removed from the saved view', ()
   userEvent.click(screen.getByRole('button', { name: 'Unsave Dark Green Utility Cargo Trousers' }));
   expect(screen.getByRole('heading', { name: 'Keep a little inspiration.' })).toBeInTheDocument();
 });
-test.each(['price-low', 'price-high'])('school collection keeps quotation-only trousers after priced pieces for %s', sort => {
+test.each(['price-low', 'price-high'])('school collection sorts uniform pieces by price for %s', sort => {
   window.history.replaceState({}, '', '/shop?category=uniforms&sort=' + sort);
   render(<App />);
   const cards = screen.getAllByRole('article');
   expect(cards).toHaveLength(2);
-  expect(within(cards[0]).getByRole('img')).toHaveAttribute('src', '/products/school-uniform-shorts.webp');
-  expect(within(cards[1]).getByRole('heading')).toHaveTextContent('The white school trouser');
-  expect(within(cards[1]).getByText('Price on enquiry')).toBeInTheDocument();
+  if (sort === 'price-low') {
+    expect(within(cards[0]).getByRole('heading')).toHaveTextContent('The white school trouser');
+    expect(within(cards[1]).getByRole('heading')).toHaveTextContent('The school-day uniform');
+  } else {
+    expect(within(cards[0]).getByRole('heading')).toHaveTextContent('The school-day uniform');
+    expect(within(cards[1]).getByRole('heading')).toHaveTextContent('The white school trouser');
+  }
+  expect(within(cards[0]).getByText(/material cost/i)).toBeInTheDocument();
+  expect(within(cards[1]).getByText(/material cost/i)).toBeInTheDocument();
 });
 test('white school trousers can be selected in the customizer and included in an enquiry', () => {
   render(<App />);
@@ -65,7 +71,7 @@ test('white school trousers can be selected in the customizer and included in an
   userEvent.click(within(dialog).getByRole('button', { name: /review your enquiry/i }));
   const message = new URL(within(dialog).getByRole('link', { name: /open whatsapp/i }).getAttribute('href')).searchParams.get('text');
   expect(message).toContain("Piece: Boys' White Full-Length School Trousers");
-  expect(message).toContain('Price: Please provide a quotation');
+  expect(message).toContain('Starting price: LKR 1,300 + material cost');
   expect(message).toContain('Color: White');
 });
 test('invalid saved data cannot crash the collection', () => {
