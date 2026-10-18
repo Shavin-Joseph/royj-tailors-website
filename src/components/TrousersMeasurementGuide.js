@@ -1,51 +1,11 @@
-// src/components/TrousersMeasurementGuide.js
 import React from 'react';
-import styled from 'styled-components';
-
-const GuideContainer = styled.div`
-  margin-top: 1.2rem;
-  background: var(--bg-light);
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 1.2rem;
-  color: var(--text-main);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-`;
-
-const Title = styled.h4`
-  margin: 0 0 0.8rem 0;
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.2rem;
-  color: var(--primary-blue);
-`;
-
-const StepsList = styled.ul`
-  padding-left: 1.2rem;
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  line-height: 1.5;
-
-  li {
-    margin-bottom: 0.4rem;
-    strong {
-      color: var(--text-main);
-    }
-  }
-`;
-
-const TrousersMeasurementGuide = () => {
-  return (
-    <GuideContainer>
-      <Title>Trousers & Cargo Pants Measurement Guide</Title>
-      <StepsList>
-        <li><strong>Waist:</strong> Measure around your natural waistline where you wear pants.</li>
-        <li><strong>Inseam (Leg Length):</strong> Measure inner leg from crotch seam down to top of shoe heel.</li>
-        <li><strong>Hips / Seat:</strong> Measure around the fullest part of your hips/seat.</li>
-        <li><strong>Thigh:</strong> Measure around upper thigh for comfortable seat fit.</li>
-      </StepsList>
-    </GuideContainer>
-  );
-};
-
-export default TrousersMeasurementGuide;
+export default function TrousersMeasurementGuide({ shorts = false }) {
+  return <div className="measurement-guide"><h3>{shorts ? 'Measuring for your shorts' : 'Measuring for your trousers'}</h3><ul>
+    <li><strong>Waist:</strong> Measure around where you wear the waistband. Keep the tape level.</li>
+    <li><strong>Inseam:</strong> {shorts ? 'Measure down the inner leg from the crotch seam to your preferred shorts hem.' : 'Measure a well-fitting pair from the crotch seam down the inner leg to the hem.'}</li>
+    <li><strong>Hips / seat:</strong> Measure around the fullest part of your hips.</li>
+    <li><strong>Thigh:</strong> Measure around the widest part of your upper thigh.</li>
+    <li><strong>Leg opening:</strong> Measure around the full opening at the hem, rather than its flat width.</li>
+    {!shorts && <li><strong>Outseam:</strong> Measure from the top of the waistband down the outside seam to the hem.</li>}
+  </ul></div>;
+}

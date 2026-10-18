@@ -1,241 +1,42 @@
-// src/pages/ShopPage.js
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Helmet } from 'react-helmet-async';
+import { useSearchParams, Link } from 'react-router-dom';
+import { FiSearch, FiArrowUpRight, FiHeart, FiX } from 'react-icons/fi';
 import { products } from '../data/products';
+import { categories } from '../data/studio';
+import { useStore } from '../components/StoreContext';
 import ProductCard from '../components/ProductCard';
 import FitQuizModal from '../components/FitQuizModal';
-import { FaSearch, FaRulerCombined } from 'react-icons/fa';
 
-const PageContainer = styled.div`
-  padding: 3rem 4rem 6rem 4rem;
-  max-width: 1400px;
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem 4rem 1.5rem;
-  }
-`;
-
-const HeaderSection = styled.div`
-  text-align: center;
-  margin-bottom: 3rem;
-`;
-
-const Badge = styled.span`
-  display: inline-block;
-  background: #EFF6FF;
-  color: var(--primary-blue);
-  border: 1px solid var(--primary-blue);
-  padding: 0.4rem 1rem;
-  border-radius: 30px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin-bottom: 0.8rem;
-`;
-
-const PageTitle = styled.h1`
-  font-family: 'DM Serif Display', sans-serif;
-  font-size: 3.2rem;
-  color: var(--text-main);
-  margin: 0 0 0.8rem 0;
-
-  @media (max-width: 768px) {
-    font-size: 2.2rem;
-  }
-`;
-
-const Subtitle = styled.p`
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  max-width: 600px;
-  margin: 0 auto;
-`;
-
-const ControlsBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-  flex-wrap: wrap;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-`;
-
-const CategoryTabs = styled.div`
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-`;
-
-const TabButton = styled.button`
-  background: ${props => props.active ? 'var(--primary-blue)' : '#FFFFFF'};
-  color: ${props => props.active ? '#FFFFFF' : 'var(--text-main)'};
-  border: 1px solid ${props => props.active ? 'var(--primary-blue)' : 'var(--border-color)'};
-  padding: 0.65rem 1.3rem;
-  border-radius: 30px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:hover {
-    border-color: var(--primary-blue);
-  }
-`;
-
-const SearchBox = styled.div`
-  position: relative;
-  min-width: 260px;
-
-  input {
-    width: 100%;
-    background: #FFFFFF;
-    border: 1px solid var(--border-color);
-    border-radius: 30px;
-    padding: 0.65rem 1rem 0.65rem 2.8rem;
-    color: var(--text-main);
-    font-size: 0.9rem;
-    outline: none;
-    font-family: inherit;
-
-    &:focus {
-      border-color: var(--primary-blue);
-    }
-  }
-
-  .icon {
-    position: absolute;
-    left: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-light);
-  }
-`;
-
-const FitQuizBanner = styled.div`
-  background: #EFF6FF;
-  border: 1px solid var(--primary-blue);
-  border-radius: 14px;
-  padding: 1.2rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2.5rem;
-  color: var(--text-main);
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-  }
-`;
-
-const QuizBtn = styled.button`
-  background: var(--primary-blue);
-  color: #FFFFFF;
-  border: none;
-  padding: 0.7rem 1.4rem;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const ProductGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2.5rem;
-`;
-
-const ShopPage = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isQuizOpen, setQuizOpen] = useState(false);
-
-  const filteredProducts = products.filter((p) => {
-    const matchesCategory = activeCategory === 'all' || p.category === activeCategory;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          p.fabric.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+export default function ShopPage() {
+  const [params, setParams] = useSearchParams();
+  const [quiz, setQuiz] = useState(false);
+  const { saved } = useStore();
+  const category = categories.some(c => c.id === params.get('category')) ? params.get('category') : 'all';
+  const query = params.get('q') || '';
+  const sort = params.get('sort') || 'featured';
+  const savedOnly = params.get('saved') === 'true';
+  const update = (key, value) => {
+    const next = new URLSearchParams(params);
+    if (!value || value === 'all' || value === 'featured') next.delete(key); else next.set(key, value);
+    setParams(next, { replace: key === 'q' });
+  };
+  const filtered = products.filter(p => (category === 'all' || category === p.category)
+    && (!savedOnly || saved.includes(p.id))
+    && [p.name, p.fabric, p.category, ...p.colors].join(' ').toLowerCase().includes(query.trim().toLowerCase()));
+  if (sort === 'price-low' || sort === 'price-high') filtered.sort((a,b) => {
+    if (a.priceValue == null) return b.priceValue == null ? 0 : 1;
+    if (b.priceValue == null) return -1;
+    return sort === 'price-low' ? a.priceValue - b.priceValue : b.priceValue - a.priceValue;
   });
-
-  return (
-    <>
-      <Helmet>
-        <title>All Products | Royj Tailors Custom Menswear & Uniforms</title>
-        <meta name="description" content="Browse custom dark green cargo trousers, formal pants, shirts, casual shorts, and school uniforms. Order on WhatsApp with custom sizes." />
-      </Helmet>
-
-      <PageContainer>
-        <HeaderSection>
-          <Badge>Full Product Catalog</Badge>
-          <PageTitle>All Tailored Products</PageTitle>
-          <Subtitle>
-            Select your favorite item, choose your size or enter your exact measurements, and place your order on WhatsApp!
-          </Subtitle>
-        </HeaderSection>
-
-        <FitQuizBanner>
-          <div>
-            <strong style={{ color: 'var(--primary-blue)' }}>Not sure what size to pick?</strong>
-            <div style={{ fontSize: '0.88rem', color: 'var(--text-muted)' }}>Use our 3-second quick size helper to find your fit.</div>
-          </div>
-          <QuizBtn onClick={() => setQuizOpen(true)}>
-            <FaRulerCombined /> Quick Size Helper
-          </QuizBtn>
-        </FitQuizBanner>
-
-        <ControlsBar>
-          <CategoryTabs>
-            <TabButton active={activeCategory === 'all'} onClick={() => setActiveCategory('all')}>
-              All Products ({products.length})
-            </TabButton>
-            <TabButton active={activeCategory === 'trousers'} onClick={() => setActiveCategory('trousers')}>
-              Cargo Pants & Trousers
-            </TabButton>
-            <TabButton active={activeCategory === 'shirts'} onClick={() => setActiveCategory('shirts')}>
-              Shirts
-            </TabButton>
-            <TabButton active={activeCategory === 'shorts'} onClick={() => setActiveCategory('shorts')}>
-              Shorts
-            </TabButton>
-            <TabButton active={activeCategory === 'uniforms'} onClick={() => setActiveCategory('uniforms')}>
-              School Uniforms
-            </TabButton>
-          </CategoryTabs>
-
-          <SearchBox>
-            <FaSearch className="icon" />
-            <input
-              type="text"
-              placeholder="Search product name..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </SearchBox>
-        </ControlsBar>
-
-        <ProductGrid>
-          {filteredProducts.map(product => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </ProductGrid>
-      </PageContainer>
-
-      <FitQuizModal isOpen={isQuizOpen} onClose={() => setQuizOpen(false)} />
-    </>
-  );
-};
-
-export default ShopPage;
+  else filtered.sort((a,b) => Number(b.isFeatured) - Number(a.isFeatured));
+  return <div className="container shop-page">
+    <><title>{(savedOnly ? 'Saved pieces' : 'The collection') + ' | Royj Tailors'}</title><meta name="description" content="Explore tailored trousers, cotton shirts, shorts and school uniforms. Find your color and fit at Royj Tailors, Wattala." /></>
+    <div className="page-heading"><span className="eyebrow">{savedOnly ? 'KEEP THE ONES YOU LOVE CLOSE' : 'THOUGHTFUL PIECES. EVERYDAY POSSIBILITIES.'}</span><h1>{savedOnly ? <>Your <em>saved pieces.</em></> : <>The everyday <em>collection.</em></>}</h1><p>Good fabric. Considered details. A fit that’s yours.</p></div>
+    <div className="shop-toolbar"><label className="search-field"><FiSearch /><span className="sr-only">Search the collection</span><input type="search" placeholder="Find a piece, fabric or color…" value={query} onChange={e => update('q', e.target.value)} /></label><button className={'saved-filter ' + (savedOnly ? 'active' : '')} aria-pressed={savedOnly} onClick={() => update('saved', savedOnly ? '' : 'true')}><FiHeart /> Saved ({saved.length})</button><label className="sort-field"><span>Sort by</span><select aria-label="Sort collection" value={sort} onChange={e => update('sort', e.target.value)}><option value="featured">Featured</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option></select></label></div>
+    <div className="collection-tabs" aria-label="Product categories">{categories.map(c => <button key={c.id} aria-pressed={category === c.id} onClick={() => update('category', c.id)}>{c.name}<span>{c.id === 'all' ? products.length : products.filter(p => p.category === c.id).length}</span></button>)}</div>
+    <div className="results-line"><span aria-live="polite">{filtered.length} {filtered.length === 1 ? 'piece' : 'pieces'} to make your own</span>{(query || category !== 'all' || savedOnly) && <button className="text-button" onClick={() => setParams({})}>Clear filters <FiX /></button>}</div>
+    {filtered.length ? <div className="product-grid shop-grid">{filtered.map(p => <ProductCard key={p.id} product={p} />)}</div> : <div className="empty-state"><FiSearch /><h2>{savedOnly && !saved.length ? 'Keep a little inspiration.' : 'No pieces found this time.'}</h2><p>{savedOnly && !saved.length ? 'Tap the heart on a piece to save it here for later.' : 'Try a different search, or clear your filters to explore the collection.'}</p><button className="button" onClick={() => setParams({})}>Explore all pieces <FiArrowUpRight /></button></div>}
+    <div className="fit-banner"><div><span className="eyebrow">A LITTLE HELP WITH THE FIT?</span><h2>Let’s take the guesswork out.</h2><p>Use your measurements to find a starting size, or visit us for a fitting.</p></div><div><button className="button" onClick={() => setQuiz(true)}>Find your fit <FiArrowUpRight /></button><Link className="text-link" to="/contact">Visit the studio <FiArrowUpRight /></Link></div></div>
+    <FitQuizModal isOpen={quiz} onClose={() => setQuiz(false)} />
+  </div>;
+}
