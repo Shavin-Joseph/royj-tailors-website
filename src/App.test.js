@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import { render, screen, within, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -109,4 +110,13 @@ test('modal locks scrolling, closes on Escape cancel, and restores trigger focus
   expect(document.body.style.overflow).toBe('');
   expect(document.activeElement).toBe(trigger);
   trigger.remove();
+=======
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+>>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9
 });

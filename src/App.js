@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { MotionConfig } from 'framer-motion';
@@ -6,11 +7,20 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FloatingWhatsApp from './components/FloatingWhatsApp';
 import { StoreProvider } from './components/StoreContext';
+=======
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import GlobalStyle from './globalStyles';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+>>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import OurCraftPage from './pages/OurCraftPage';
 import ContactPage from './pages/ContactPage';
+<<<<<<< HEAD
 import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
 
@@ -44,3 +54,29 @@ export default function App() {
     </StoreProvider></MotionConfig>
   </BrowserRouter>;
 }
+=======
+import { LanguageProvider } from './context/LanguageContext';
+
+function App() {
+  return (
+    <LanguageProvider>
+      <Router>
+        <GlobalStyle />
+        <Navbar />
+        <main>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/product/:productId" element={<ProductDetailPage />} />
+            <Route path="/our-craft" element={<OurCraftPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </Router>
+    </LanguageProvider>
+  );
+}
+
+export default App;
+>>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9

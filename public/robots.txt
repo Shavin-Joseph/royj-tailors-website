@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 User-agent: *
 Disallow:
 
 Sitemap: https://www.royjtailors.store/sitemap.xml
+=======
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Disallow:
+>>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9

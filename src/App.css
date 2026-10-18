@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Mobile-first editorial styling: paper, ink, olive. */
 .container{width:min(1280px,calc(100% - 40px));margin-inline:auto}
 #main-content:focus{outline:none}
@@ -306,4 +307,43 @@ textarea{resize:vertical}.selected-color{font-size:11px;margin:0 0 10px}
  .hero-product-label strong{font-size:18px}.hero-product-label>span:last-child{font-size:9px}.editorial-caption{font-size:7px}
  .customizer{padding-inline:14px}.garment-model{width:210px;margin-left:-105px}.preview-perspective{height:290px}
  .preview-topline{font-size:6px}.product-card h3{font-size:18px}.product-card .product-badge{font-size:6px}.mini-swatches{display:none}
+=======
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+>>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9
 }
