@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-<<<<<<< HEAD
 const GlobalStyle = createGlobalStyle`
 :root { --paper:#f8f6f0; --ink:#252b25; --olive:#4c5841; --muted:#696b62; --line:#dcded2; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Plus Jakarta Sans',Arial,sans-serif; --bg-light:#f8f6f0; --bg-surface:#fffefb; --bg-card:#fffefb; --bg-secondary:#eeeee5; --primary-blue:#4c5841; --primary-emerald:#3e5845; --gold-accent:#947653; --text-main:#252b25; --text-muted:#696b62; --text-light:#696b62; --border-color:#dcded2; }
 *,*::before,*::after { box-sizing:border-box; }
@@ -21,24 +20,3 @@ svg { flex-shrink:0; }
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; scroll-behavior:auto!important; } }
 `;
 export default GlobalStyle;
-=======
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #FFFFFF;
-    color: #1A1A1A;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-  }
-`;
-
-export default GlobalStyle;
->>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9

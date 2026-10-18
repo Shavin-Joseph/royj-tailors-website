@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<<<<<<< HEAD
   <url><loc>https://www.royjtailors.store/</loc></url>
   <url><loc>https://www.royjtailors.store/shop</loc></url>
   <url><loc>https://www.royjtailors.store/our-craft</loc></url>
@@ -12,12 +11,4 @@
   <url><loc>https://www.royjtailors.store/product/modern-blue-oxford-short</loc></url>
   <url><loc>https://www.royjtailors.store/product/essential-gray-trousers</loc></url>
   <url><loc>https://www.royjtailors.store/product/white-school-uniform-trousers</loc></url>
-=======
-  <url>
-    <loc>https://www.royjtailors.store/</loc>
-  </url>
-  <url>
-    <loc>https://www.royjtailors.store/shop</loc>
-  </url>
->>>>>>> bbd6728eab04548842ae8036b6e641589e8eaba9
 </urlset>
