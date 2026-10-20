@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1640px;
+      height: 924px;
+      background: #171c17;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+      color: #f8f6f0;
+    }
+
+    /* Background fabric texture & rich studio lighting */
+    .bg-texture {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 30%, rgba(68, 92, 72, 0.45) 0%, rgba(28, 36, 29, 0.85) 55%, #131713 100%),
+        radial-gradient(circle at 15% 50%, rgba(45, 58, 47, 0.4) 0%, transparent 65%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 4px);
+      z-index: 1;
+    }
+
+    /* Ambient warm studio light highlight */
+    .ambient-light {
+      position: absolute;
+      top: -100px;
+      right: 180px;
+      width: 750px;
+      height: 750px;
+      background: radial-gradient(circle, rgba(212, 175, 115, 0.14) 0%, rgba(68, 92, 72, 0.08) 50%, transparent 70%);
+      border-radius: 50%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    /* Outer border frame with delicate tailor stitching */
+    .banner-frame {
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(212, 175, 115, 0.25);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .banner-frame-inner {
+      position: absolute;
+      inset: 38px;
+      border: 2px dashed rgba(212, 175, 115, 0.45);
+      z-index: 3;
+      pointer-events: none;
+    }
+    .frame-corner {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-color: #d4af73;
+      border-style: solid;
+      z-index: 4;
+    }
+    .corner-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+
+    /* Main Container (Keeps safe zone centered for desktop and mobile) */
+    .banner-content {
+      position: relative;
+      z-index: 10;
+      width: 1520px;
+      height: 820px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 30px 50px 50px 50px;
+    }
+
+    /* Left Column: Brand Story & Headline */
+    .left-column {
+      width: 860px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 20px;
+    }
+
+    /* Studio Tag Pill */
+    .brand-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 18px;
+      background: rgba(212, 175, 115, 0.1);
+      border: 1px solid rgba(212, 175, 115, 0.35);
+      border-radius: 20px;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+    .brand-eyebrow span {
+      color: #d4af73;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .brand-eyebrow .scissors-icon {
+      width: 14px;
+      height: 14px;
+      fill: #d4af73;
+    }
+
+    /* Giant Editorial Headline */
+    .headline {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 84px;
+      line-height: 1.05;
+      font-weight: 600;
+      color: #fbf9f4;
+      margin-bottom: 18px;
+      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
+    }
+    .headline em {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      color: #dfc18b;
+      font-weight: 400;
+      display: inline-block;
+    }
+
+    /* Subtitle description */
+    .description {
+      font-size: 18.5px;
+      line-height: 1.65;
+      color: #c9cbbf;
+      max-width: 740px;
+      margin-bottom: 28px;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    /* Category highlights bar */
+    .categories-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .category-chip {
+      padding: 7px 18px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: #eae8df;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .category-chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d4af73;
+    }
+
+    /* Studio Details / Contact Bar */
+    .studio-bar {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      padding: 16px 26px;
+      background: rgba(22, 28, 23, 0.9);
+      border: 1px solid rgba(212, 175, 115, 0.35);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      width: fit-content;
+    }
+    .studio-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .studio-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d4af73;
+    }
+    .studio-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fbf9f4;
+    }
+    .studio-divider {
+      width: 1px;
+      height: 32px;
+      background: rgba(212, 175, 115, 0.25);
+    }
+
+    /* Right Column: Visual Atelier Showcase */
+    .right-column {
+      width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Atelier Showcase Card */
+    .atelier-card {
+      position: relative;
+      width: 460px;
+      background: rgba(25, 32, 26, 0.92);
+      border: 1px solid rgba(212, 175, 115, 0.35);
+      border-radius: 18px;
+      padding: 38px 34px;
+      box-shadow: 
+        0 24px 60px rgba(0, 0, 0, 0.65),
+        inset 0 0 40px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      text-align: center;
+    }
+    .atelier-card-stitch {
+      position: absolute;
+      inset: 12px;
+      border: 1.5px dashed rgba(212, 175, 115, 0.35);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    /* Top Logo Inside Card */
+    .card-crest {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 22px;
+    }
+    .card-crest-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(212, 175, 115, 0.12);
+      border: 1px solid rgba(212, 175, 115, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .card-crest-icon svg {
+      width: 30px;
+      height: 30px;
+      stroke: #d4af73;
+    }
+    .card-brand-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      color: #fbf9f4;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .card-brand-sub {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.38em;
+      color: #d4af73;
+      text-transform: uppercase;
+    }
+
+    /* Divider */
+    .card-divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 175, 115, 0.4), transparent);
+      margin: 18px 0;
+    }
+
+    /* Highlights inside card */
+    .card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+    .card-feature-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #eae8df;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+    .card-feature-row svg {
+      width: 18px;
+      height: 18px;
+      color: #d4af73;
+      flex-shrink: 0;
+    }
+
+    /* Palette Swatches Bar */
+    .swatches-section {
+      text-align: left;
+      background: rgba(0, 0, 0, 0.22);
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .swatches-header {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #d4af73;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .swatches-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .swatch-circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    .swatch-label {
+      font-size: 12px;
+      color: #a7ab9e;
+      margin-left: 6px;
+    }
+
+    /* Tape measure graphic footer strip */
+    .measuring-tape {
+      position: absolute;
+      bottom: 28px;
+      left: 38px;
+      right: 38px;
+      height: 20px;
+      background: rgba(212, 175, 115, 0.08);
+      border-top: 1px solid rgba(212, 175, 115, 0.25);
+      border-bottom: 1px solid rgba(212, 175, 115, 0.25);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 10px;
+      z-index: 5;
+      font-size: 9px;
+      font-family: monospace;
+      color: rgba(212, 175, 115, 0.6);
+      letter-spacing: 0.15em;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-texture"></div>
+  <div class="ambient-light"></div>
+
+  <!-- Decorative Border Frame -->
+  <div class="banner-frame"></div>
+  <div class="banner-frame-inner"></div>
+  <div class="frame-corner corner-tl"></div>
+  <div class="frame-corner corner-tr"></div>
+  <div class="frame-corner corner-bl"></div>
+  <div class="frame-corner corner-br"></div>
+
+  <!-- Measuring Tape Bottom Accent -->
+  <div class="measuring-tape">
+    <span>| · · · 1"</span><span>| · · · 2"</span><span>| · · · 3"</span>
+    <span>| · · · 4"</span><span>| · · · 5"</span><span>| · · · 6"</span>
+    <span>| · · · 7"</span><span>| · · · 8"</span><span>| · · · 9"</span>
+    <span>| · · · 10"</span><span>| · · · 11"</span><span>| · · · 12"</span>
+    <span>| · · · 13"</span><span>| · · · 14"</span><span>| · · · 15"</span>
+  </div>
+
+  <div class="banner-content">
+    <!-- Left: Brand Message & Editorial -->
+    <div class="left-column">
+      <div class="brand-eyebrow">
+        <!-- Scissors icon -->
+        <svg class="scissors-icon" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3h-3z"/>
+        </svg>
+        <span>The Everyday, Reconsidered · Wattala Studio</span>
+      </div>
+
+      <h1 class="headline">
+        Made for you.<br>
+        <em>Worn your way.</em>
+      </h1>
+
+      <p class="description">
+        Thoughtfully tailored essentials cut to your personal measurements. From our signature utility cargo trousers and custom shirts to everyday office wear and school uniforms.
+      </p>
+
+      <!-- Category Badges -->
+      <div class="categories-bar">
+        <div class="category-chip"><span class="dot"></span> Utility Cargo Trousers</div>
+        <div class="category-chip"><span class="dot"></span> Custom Fitted Shirts</div>
+        <div class="category-chip"><span class="dot"></span> Formal Office Trousers</div>
+        <div class="category-chip"><span class="dot"></span> Tailored Shorts</div>
+        <div class="category-chip"><span class="dot"></span> School Uniforms</div>
+      </div>
+
+      <!-- Studio Details Bar -->
+      <div class="studio-bar">
+        <div class="studio-item">
+          <span class="studio-label">Fitting & Enquiries</span>
+          <span class="studio-value">+94 77 553 2642</span>
+        </div>
+        <div class="studio-divider"></div>
+        <div class="studio-item">
+          <span class="studio-label">Studio Address</span>
+          <span class="studio-value">No. 176/17A Alwistown, Wattala</span>
+        </div>
+        <div class="studio-divider"></div>
+        <div class="studio-item">
+          <span class="studio-label">Service</span>
+          <span class="studio-value">Islandwide Delivery</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Atelier Seal & Craft Card -->
+    <div class="right-column">
+      <div class="atelier-card">
+        <div class="atelier-card-stitch"></div>
+
+        <div class="card-crest">
+          <div class="card-crest-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="6" cy="6" r="3"/>
+              <circle cx="6" cy="18" r="3"/>
+              <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+              <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+              <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+            </svg>
+          </div>
+          <div class="card-brand-name">ROYJ</div>
+          <div class="card-brand-sub">TAILORS · BESPOKE</div>
+        </div>
+
+        <div class="card-divider"></div>
+
+        <div class="card-features">
+          <div class="card-feature-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <span>Custom-cut to individual measurements</span>
+          </div>
+          <div class="card-feature-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <span>Heavy-duty cotton twill & Oxford weaves</span>
+          </div>
+          <div class="card-feature-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            <span>Personal fitting appointments in Wattala</span>
+          </div>
+        </div>
+
+        <!-- Fabric Palette Swatches -->
+        <div class="swatches-section">
+          <div class="swatches-header">
+            <span>Signature Twill Palette</span>
+            <span>Hand-Selected</span>
+          </div>
+          <div class="swatches-row">
+            <div class="swatch-circle" style="background: #344b3c;" title="Forest Green"></div>
+            <div class="swatch-circle" style="background: #b4a07b;" title="Khaki Tan"></div>
+            <div class="swatch-circle" style="background: #343e50;" title="Navy Blue"></div>
+            <div class="swatch-circle" style="background: #62635f;" title="Charcoal"></div>
+            <div class="swatch-circle" style="background: #f4f2e9;" title="Ivory White"></div>
+            <span class="swatch-label">+ Custom Shades</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

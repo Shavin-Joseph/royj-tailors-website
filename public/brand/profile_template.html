@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 1024px;
+      height: 1024px;
+      background: #191e19;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      position: relative;
+    }
+    
+    /* Background woven fabric texture simulation */
+    .texture-overlay {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(68, 88, 71, 0.45) 0%, rgba(25, 30, 25, 0.95) 70%, #141714 100%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0px, rgba(255,255,255,0.015) 2px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 4px);
+      z-index: 1;
+    }
+
+    /* Ambient lighting */
+    .ambient-glow {
+      position: absolute;
+      width: 720px;
+      height: 720px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 115, 0.16) 0%, rgba(62, 88, 69, 0.12) 45%, transparent 70%);
+      z-index: 2;
+    }
+
+    /* Outer Crest Wrapper - Fits safely inside Facebook's circular mask */
+    .crest-card {
+      position: relative;
+      z-index: 10;
+      width: 830px;
+      height: 830px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Fine tailor stitch rings */
+    .stitch-ring-outer {
+      position: absolute;
+      inset: 22px;
+      border-radius: 50%;
+      border: 2.5px dashed rgba(212, 175, 115, 0.65);
+      pointer-events: none;
+    }
+    .stitch-ring-inner {
+      position: absolute;
+      inset: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 115, 0.35);
+      pointer-events: none;
+    }
+    .stitch-ring-core {
+      position: absolute;
+      inset: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: radial-gradient(circle at 50% 42%, rgba(37, 44, 37, 0.96) 0%, rgba(22, 26, 22, 0.99) 100%);
+      box-shadow: 
+        inset 0 0 70px rgba(0, 0, 0, 0.65),
+        0 18px 50px rgba(0, 0, 0, 0.6);
+      pointer-events: none;
+    }
+
+    /* Compass cardinal stitch stars */
+    .cardinal-star {
+      position: absolute;
+      color: #d4af73;
+      font-size: 14px;
+      opacity: 0.85;
+      z-index: 15;
+    }
+    .cardinal-north { top: 28px; left: 50%; transform: translateX(-50%); }
+    .cardinal-south { bottom: 28px; left: 50%; transform: translateX(-50%); }
+    .cardinal-west { left: 28px; top: 50%; transform: translateY(-50%); }
+    .cardinal-east { right: 28px; top: 50%; transform: translateY(-50%); }
+
+    /* Top Arch Badge */
+    .top-badge {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+      margin-bottom: 24px;
+    }
+    .top-badge span {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.36em;
+      text-transform: uppercase;
+      color: #d4af73;
+    }
+    .top-badge .dot {
+      width: 5px;
+      height: 5px;
+      background: #d4af73;
+      border-radius: 50%;
+      opacity: 0.9;
+    }
+    .top-badge .flourish {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #d4af73, transparent);
+    }
+
+    /* Central Monogram and Scissors Icon */
+    .emblem-center {
+      position: relative;
+      z-index: 20;
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .monogram-container {
+      position: relative;
+      width: 250px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Tailor Scissors SVG */
+    .scissors-svg {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      opacity: 0.95;
+      filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.55));
+      top: 30px;
+    }
+
+    .monogram-letter {
+      position: relative;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 205px;
+      font-weight: 700;
+      line-height: 1;
+      color: #fbf9f4;
+      text-shadow: 
+        0 6px 22px rgba(0, 0, 0, 0.8),
+        0 1px 3px rgba(212, 175, 115, 0.5);
+      letter-spacing: -0.01em;
+      transform: translateY(-8px);
+    }
+
+    /* Brand Name */
+    .brand-title {
+      position: relative;
+      z-index: 20;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 68px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fbf9f4;
+      margin-bottom: 6px;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .brand-subtitle {
+      position: relative;
+      z-index: 20;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: #d4af73;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Bottom Tailor Ribbon / Pill */
+    .tailor-ribbon {
+      position: relative;
+      z-index: 20;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 28px;
+      border-radius: 30px;
+      background: rgba(212, 175, 115, 0.1);
+      border: 1px solid rgba(212, 175, 115, 0.35);
+      color: #edebe4;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    }
+    .tailor-ribbon svg {
+      width: 14px;
+      height: 14px;
+      fill: #d4af73;
+    }
+  </style>
+</head>
+<body>
+  <div class="texture-overlay"></div>
+  <div class="ambient-glow"></div>
+
+  <div class="crest-card">
+    <div class="stitch-ring-core"></div>
+    <div class="stitch-ring-outer"></div>
+    <div class="stitch-ring-inner"></div>
+
+    <div class="cardinal-star cardinal-north">✦</div>
+    <div class="cardinal-star cardinal-south">✦</div>
+    <div class="cardinal-star cardinal-west">✦</div>
+    <div class="cardinal-star cardinal-east">✦</div>
+
+    <!-- Top Atelier Tag -->
+    <div class="top-badge">
+      <div class="flourish"></div>
+      <span>EST. WATTALA</span>
+      <div class="dot"></div>
+      <span>SRI LANKA</span>
+      <div class="flourish"></div>
+    </div>
+
+    <!-- Center Monogram + Tailor Shears -->
+    <div class="emblem-center">
+      <div class="monogram-container">
+        <!-- Elegant Tailor Scissors SVG -->
+        <svg class="scissors-svg" viewBox="0 0 100 100" fill="none" stroke="#d4af73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <!-- Left loop and blade -->
+          <circle cx="26" cy="74" r="14" stroke="#d4af73" stroke-width="4.2" fill="none" />
+          <path d="M37 63 L80 20" stroke="#d4af73" stroke-width="4.5" />
+          <!-- Right loop and blade -->
+          <circle cx="74" cy="74" r="14" stroke="#d4af73" stroke-width="4.2" fill="none" />
+          <path d="M63 63 L20 20" stroke="#d4af73" stroke-width="4.5" />
+          <!-- Center screw/pivot rivet -->
+          <circle cx="50" cy="50" r="5" fill="#fbf9f4" stroke="#d4af73" stroke-width="3" />
+        </svg>
+        <div class="monogram-letter">R</div>
+      </div>
+    </div>
+
+    <!-- Brand Typography -->
+    <h1 class="brand-title">ROYJ</h1>
+    <div class="brand-subtitle">TAILORS</div>
+
+    <!-- Bottom Tagline Pill -->
+    <div class="tailor-ribbon">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+      </svg>
+      <span>Bespoke & Made to Measure</span>
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>
