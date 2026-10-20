@@ -3,23 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Royj Tailors · Brand Assets for Facebook</title>
+  <title>Royj Tailors · Facebook Brand Assets (White Theme)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --paper: #f8f6f0;
       --ink: #252b25;
       --olive: #4c5841;
-      --gold: #c2a677;
-      --card-bg: #1c221d;
-      --border: rgba(194, 166, 119, 0.25);
+      --gold: #947653;
+      --card-bg: #ffffff;
+      --border: #dcded2;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #141814;
-      color: var(--paper);
+      background: #f4f2ea;
+      color: var(--ink);
       font-family: 'Plus Jakarta Sans', sans-serif;
       padding: 40px 20px;
       line-height: 1.6;
@@ -30,28 +30,29 @@
     }
     header {
       text-align: center;
-      margin-bottom: 50px;
-      padding-bottom: 30px;
-      border-bottom: 1px dashed var(--border);
+      margin-bottom: 45px;
+      padding-bottom: 25px;
+      border-bottom: 1.5px dashed var(--gold);
     }
     .eyebrow {
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: var(--gold);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: inline-block;
     }
     h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 48px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      letter-spacing: 0.05em;
+      font-size: 46px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+      letter-spacing: 0.04em;
     }
     p.lead {
-      color: #b2b6ab;
+      color: #696b62;
       font-size: 17px;
       max-width: 650px;
       margin: 0 auto;
@@ -60,27 +61,29 @@
     /* Simulation Preview Card */
     .preview-card {
       background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      border: 2px solid var(--ink);
+      border-radius: 18px;
       overflow: hidden;
       margin-bottom: 50px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      box-shadow: 0 16px 40px rgba(37, 43, 37, 0.08);
     }
     .preview-header {
-      padding: 16px 24px;
-      background: rgba(0,0,0,0.3);
+      padding: 16px 26px;
+      background: #f7f5ed;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--gold);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--olive);
     }
     .fb-stage {
       position: relative;
       width: 100%;
-      background: #111;
+      background: #f7f5ed;
     }
     .fb-cover-img {
       width: 100%;
@@ -95,10 +98,10 @@
       width: 160px;
       height: 160px;
       border-radius: 50%;
-      border: 5px solid #141814;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      border: 5px solid #ffffff;
+      box-shadow: 0 10px 25px rgba(37, 43, 37, 0.2);
       overflow: hidden;
-      background: #1c221d;
+      background: #ffffff;
     }
     .fb-avatar-overlay img {
       width: 100%;
@@ -107,32 +110,34 @@
     }
     .fb-meta-bar {
       padding: 60px 40px 30px 50px;
-      background: var(--card-bg);
+      background: #ffffff;
     }
     .fb-page-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 32px;
+      font-size: 34px;
       font-weight: 700;
-      color: #fff;
+      color: var(--ink);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
     .fb-page-title span.badge {
       font-size: 11px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-weight: 700;
-      background: rgba(194, 166, 119, 0.15);
+      font-weight: 800;
+      background: #f7f5ed;
       border: 1px solid var(--gold);
       color: var(--gold);
       padding: 3px 10px;
       border-radius: 12px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
     .fb-page-desc {
-      color: #a4a89d;
-      font-size: 14px;
+      color: #696b62;
+      font-size: 14.5px;
       margin-top: 6px;
+      font-weight: 500;
     }
 
     /* Individual Assets Section */
@@ -150,119 +155,124 @@
     .asset-box {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 24px;
+      border-radius: 16px;
+      padding: 26px;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 8px 24px rgba(37, 43, 37, 0.05);
     }
     .asset-box h2 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 24px;
-      color: #fff;
-      margin-bottom: 6px;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
     }
     .asset-spec {
       font-size: 12px;
       color: var(--gold);
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-bottom: 18px;
       text-transform: uppercase;
     }
     .asset-preview-wrap {
-      background: #0f130f;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 10px;
+      background: #f7f5ed;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 16px;
-      margin-bottom: 20px;
-      min-height: 280px;
+      padding: 20px;
+      margin-bottom: 22px;
+      min-height: 290px;
     }
     .asset-preview-wrap img {
       max-width: 100%;
       height: auto;
-      border-radius: 6px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      border-radius: 8px;
+      box-shadow: 0 8px 22px rgba(37, 43, 37, 0.12);
     }
     .asset-preview-wrap.circle-preview img {
-      width: 240px;
-      height: 240px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
     }
     .download-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: var(--gold);
-      color: #171c17;
+      gap: 10px;
+      padding: 13px 26px;
+      background: var(--ink);
+      color: #ffffff;
       text-decoration: none;
       font-weight: 700;
       font-size: 14px;
       border-radius: 8px;
-      transition: opacity 0.2s;
+      transition: background 0.2s, transform 0.1s;
       margin-top: auto;
     }
     .download-btn:hover {
-      opacity: 0.9;
+      background: var(--olive);
     }
 
-    /* Palette & specs card */
+    /* Specs card */
     .specs-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 30px;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(37, 43, 37, 0.04);
     }
     .specs-card h3 {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 24px;
-      color: var(--gold);
+      font-weight: 700;
+      color: var(--ink);
       margin-bottom: 16px;
     }
     .swatches-list {
       display: flex;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
     }
     .swatch-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(0,0,0,0.25);
-      padding: 8px 14px;
+      background: #f7f5ed;
+      padding: 8px 16px;
       border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
     }
     .swatch-box {
-      width: 22px;
-      height: 22px;
-      border-radius: 4px;
-      border: 1px solid rgba(255,255,255,0.2);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     .swatch-info {
       font-size: 12px;
     }
-    .swatch-info strong { display: block; color: #fff; font-size: 13px; }
+    .swatch-info strong { display: block; color: var(--ink); font-size: 13px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <span class="eyebrow">Bespoke Atelier Branding</span>
+      <span class="eyebrow">Minimalist White Atelier Theme</span>
       <h1>Royj Tailors · Facebook Page Assets</h1>
-      <p class="lead">Designed to perfectly match the website's editorial aesthetic, typography, tailoring insignia, and warm olive-charcoal palette.</p>
+      <p class="lead">Clean, bright, iconic design with minimal text and immediate visual recognition of the tailor shears emblem.</p>
     </header>
 
     <!-- Facebook Mockup Simulation -->
     <div class="preview-card">
       <div class="preview-header">
-        <span>Facebook Page Preview (Combined)</span>
-        <span>Verified Safe Zones (Desktop & Mobile)</span>
+        <span>Combined Facebook Mockup</span>
+        <span>Mobile & Desktop Verified</span>
       </div>
       <div class="fb-stage">
         <img class="fb-cover-img" src="./facebook-cover.png" alt="Facebook Cover Banner">
@@ -275,7 +285,7 @@
           Royj Tailors
           <span class="badge">Bespoke Studio</span>
         </div>
-        <div class="fb-page-desc">Everyday clothing, bespoke utility cargo trousers, shirts & school uniforms · Wattala, Sri Lanka</div>
+        <div class="fb-page-desc">Bespoke tailoring, custom utility cargo trousers, shirts & school uniforms · Wattala, Sri Lanka</div>
       </div>
     </div>
 
@@ -284,7 +294,7 @@
       <!-- Profile Picture -->
       <div class="asset-box">
         <h2>Facebook Profile Picture</h2>
-        <div class="asset-spec">1024 × 1024 px · High-Res PNG · Circular Crop Ready</div>
+        <div class="asset-spec">1024 × 1024 px · High-Res PNG · Instant Recognition Icon</div>
         <div class="asset-preview-wrap circle-preview">
           <img src="./facebook-profile.png" alt="Profile Picture Preview">
         </div>
@@ -296,7 +306,7 @@
       <!-- Cover Banner -->
       <div class="asset-box">
         <h2>Facebook Cover Banner</h2>
-        <div class="asset-spec">1640 × 924 px · Meta Recommended Resolution · Safe Zone Protected</div>
+        <div class="asset-spec">1640 × 924 px · Meta HD Standard · Minimal Clean Layout</div>
         <div class="asset-preview-wrap">
           <img src="./facebook-cover.png" alt="Cover Banner Preview">
         </div>
@@ -306,36 +316,36 @@
       </div>
     </div>
 
-    <!-- Color Codes & Typography Reference -->
+    <!-- Color Palette -->
     <div class="specs-card">
       <h3>Brand Theme Consistency</h3>
       <div class="swatches-list">
         <div class="swatch-item">
-          <div class="swatch-box" style="background: #191e19;"></div>
+          <div class="swatch-box" style="background: #ffffff; border-color: #dcded2;"></div>
           <div class="swatch-info">
-            <strong>Deep Atelier Charcoal</strong>
-            #191e19
+            <strong>Clean Studio White</strong>
+            #ffffff
           </div>
         </div>
         <div class="swatch-item">
-          <div class="swatch-box" style="background: #344b3c;"></div>
+          <div class="swatch-box" style="background: #f7f5ed;"></div>
           <div class="swatch-info">
-            <strong>Dark Forest Green</strong>
-            #344b3c
+            <strong>Warm Paper Ivory</strong>
+            #f7f5ed
           </div>
         </div>
         <div class="swatch-item">
-          <div class="swatch-box" style="background: #d4af73;"></div>
+          <div class="swatch-box" style="background: #252b25;"></div>
           <div class="swatch-info">
-            <strong>Antique Brass Gold</strong>
-            #d4af73
+            <strong>Deep Charcoal Ink</strong>
+            #252b25
           </div>
         </div>
         <div class="swatch-item">
-          <div class="swatch-box" style="background: #fbf9f4;"></div>
+          <div class="swatch-box" style="background: #947653;"></div>
           <div class="swatch-info">
-            <strong>Ivory Linen Paper</strong>
-            #fbf9f4
+            <strong>Antique Gold Stitch</strong>
+            #947653
           </div>
         </div>
         <div class="swatch-item">

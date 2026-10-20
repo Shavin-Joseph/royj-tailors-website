@@ -4,74 +4,83 @@
   <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       width: 1640px;
       height: 924px;
-      background: #171c17;
+      background: #f7f5ed;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Plus Jakarta Sans', sans-serif;
       position: relative;
-      color: #f8f6f0;
+      color: #252b25;
     }
 
-    /* Background fabric texture & rich studio lighting */
-    .bg-texture {
+    /* Clean linen paper texture */
+    .bg-paper {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 80% 30%, rgba(68, 92, 72, 0.45) 0%, rgba(28, 36, 29, 0.85) 55%, #131713 100%),
-        radial-gradient(circle at 15% 50%, rgba(45, 58, 47, 0.4) 0%, transparent 65%),
-        repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0px, rgba(255,255,255,0.012) 2px, transparent 2px, transparent 4px),
-        repeating-linear-gradient(-45deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 4px);
+        radial-gradient(circle at 75% 40%, #ffffff 0%, #f9f8f2 50%, #eeebe1 100%),
+        repeating-linear-gradient(45deg, rgba(37,43,37,0.015) 0px, rgba(37,43,37,0.015) 1px, transparent 1px, transparent 4px),
+        repeating-linear-gradient(-45deg, rgba(37,43,37,0.015) 0px, rgba(37,43,37,0.015) 1px, transparent 1px, transparent 4px);
       z-index: 1;
-    }
-
-    /* Ambient warm studio light highlight */
-    .ambient-light {
-      position: absolute;
-      top: -100px;
-      right: 180px;
-      width: 750px;
-      height: 750px;
-      background: radial-gradient(circle, rgba(212, 175, 115, 0.14) 0%, rgba(68, 92, 72, 0.08) 50%, transparent 70%);
-      border-radius: 50%;
-      z-index: 2;
-      pointer-events: none;
     }
 
     /* Outer border frame with delicate tailor stitching */
     .banner-frame {
       position: absolute;
       inset: 28px;
-      border: 1px solid rgba(212, 175, 115, 0.25);
+      border: 1px solid rgba(37, 43, 37, 0.15);
       z-index: 3;
       pointer-events: none;
     }
     .banner-frame-inner {
       position: absolute;
       inset: 38px;
-      border: 2px dashed rgba(212, 175, 115, 0.45);
+      border: 2px dashed #947653;
+      opacity: 0.5;
       z-index: 3;
       pointer-events: none;
     }
     .frame-corner {
       position: absolute;
-      width: 20px;
-      height: 20px;
-      border-color: #d4af73;
+      width: 22px;
+      height: 22px;
+      border-color: #252b25;
       border-style: solid;
       z-index: 4;
     }
-    .corner-tl { top: 20px; left: 20px; border-width: 2px 0 0 2px; }
-    .corner-tr { top: 20px; right: 20px; border-width: 2px 2px 0 0; }
-    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2px 2px; }
-    .corner-br { bottom: 20px; right: 20px; border-width: 0 2px 2px 0; }
+    .corner-tl { top: 20px; left: 20px; border-width: 2.5px 0 0 2.5px; }
+    .corner-tr { top: 20px; right: 20px; border-width: 2.5px 2.5px 0 0; }
+    .corner-bl { bottom: 20px; left: 20px; border-width: 0 0 2.5px 2.5px; }
+    .corner-br { bottom: 20px; right: 20px; border-width: 0 2.5px 2.5px 0; }
+
+    /* Yellow tailor measuring tape at bottom */
+    .measuring-tape {
+      position: absolute;
+      bottom: 28px;
+      left: 38px;
+      right: 38px;
+      height: 28px;
+      background: #e8d79a;
+      border-top: 1.5px solid #252b25;
+      border-bottom: 1.5px solid #252b25;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 5;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      color: #252b25;
+      letter-spacing: 0.12em;
+    }
 
     /* Main Container (Keeps safe zone centered for desktop and mobile) */
     .banner-content {
@@ -82,300 +91,229 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 30px 50px 50px 50px;
+      padding: 40px 70px 60px 80px;
     }
 
-    /* Left Column: Brand Story & Headline */
+    /* Left Column: Brand & Minimal Info */
     .left-column {
-      width: 860px;
+      width: 780px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding-left: 20px;
     }
 
-    /* Studio Tag Pill */
-    .brand-eyebrow {
+    /* Small Tagline */
+    .eyebrow-tag {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 7px 18px;
-      background: rgba(212, 175, 115, 0.1);
-      border: 1px solid rgba(212, 175, 115, 0.35);
+      gap: 10px;
+      padding: 6px 18px;
+      background: #ffffff;
+      border: 1.5px solid #947653;
       border-radius: 20px;
       width: fit-content;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     }
-    .brand-eyebrow span {
-      color: #d4af73;
+    .eyebrow-tag svg {
+      width: 15px;
+      height: 15px;
+      stroke: #947653;
+      fill: none;
+    }
+    .eyebrow-tag span {
+      color: #4c5841;
       font-size: 13px;
-      font-weight: 700;
+      font-weight: 800;
       letter-spacing: 0.28em;
       text-transform: uppercase;
     }
-    .brand-eyebrow .scissors-icon {
-      width: 14px;
-      height: 14px;
-      fill: #d4af73;
+
+    /* Big Bold Brand Name */
+    .brand-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 96px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #252b25;
+      line-height: 0.95;
+      margin-bottom: 12px;
     }
 
-    /* Giant Editorial Headline */
-    .headline {
+    .brand-subtitle {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 84px;
-      line-height: 1.05;
-      font-weight: 600;
-      color: #fbf9f4;
-      margin-bottom: 18px;
-      text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);
-    }
-    .headline em {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 42px;
       font-style: italic;
-      color: #dfc18b;
-      font-weight: 400;
-      display: inline-block;
-    }
-
-    /* Subtitle description */
-    .description {
-      font-size: 18.5px;
-      line-height: 1.65;
-      color: #c9cbbf;
-      max-width: 740px;
+      color: #947653;
+      font-weight: 600;
       margin-bottom: 28px;
-      font-weight: 400;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
-    /* Category highlights bar */
-    .categories-bar {
+    /* Minimal highlight pill */
+    .pills-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 30px;
+      gap: 12px;
+      margin-bottom: 34px;
       flex-wrap: wrap;
     }
-    .category-chip {
-      padding: 7px 18px;
-      border-radius: 6px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      font-size: 13.5px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: #eae8df;
+    .pill {
+      padding: 8px 20px;
+      background: #ffffff;
+      border: 1px solid #dcded2;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #252b25;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    .category-chip .dot {
-      width: 6px;
-      height: 6px;
+    .pill .dot {
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      background: #d4af73;
+      background: #947653;
     }
 
-    /* Studio Details / Contact Bar */
-    .studio-bar {
-      display: flex;
+    /* Clean Contact Strip */
+    .contact-box {
+      display: inline-flex;
       align-items: center;
       gap: 28px;
-      padding: 16px 26px;
-      background: rgba(22, 28, 23, 0.9);
-      border: 1px solid rgba(212, 175, 115, 0.35);
+      padding: 16px 28px;
+      background: #ffffff;
+      border: 2px solid #252b25;
       border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 8px 25px rgba(37, 43, 37, 0.08);
       width: fit-content;
     }
-    .studio-item {
+    .contact-item {
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
-    .studio-label {
+    .contact-label {
       font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
+      font-weight: 800;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #d4af73;
+      color: #947653;
     }
-    .studio-value {
-      font-size: 14px;
-      font-weight: 600;
-      color: #fbf9f4;
+    .contact-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #252b25;
     }
-    .studio-divider {
+    .contact-divider {
       width: 1px;
-      height: 32px;
-      background: rgba(212, 175, 115, 0.25);
+      height: 34px;
+      background: #dcded2;
     }
 
-    /* Right Column: Visual Atelier Showcase */
+    /* Right Column: Visual Tailor Craft Card */
     .right-column {
       width: 520px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      position: relative;
     }
 
-    /* Atelier Showcase Card */
-    .atelier-card {
-      position: relative;
-      width: 460px;
-      background: rgba(25, 32, 26, 0.92);
-      border: 1px solid rgba(212, 175, 115, 0.35);
-      border-radius: 18px;
-      padding: 38px 34px;
-      box-shadow: 
-        0 24px 60px rgba(0, 0, 0, 0.65),
-        inset 0 0 40px rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
+    .visual-card {
+      width: 480px;
+      background: #ffffff;
+      border: 2px solid #252b25;
+      border-radius: 20px;
+      padding: 44px 38px;
+      box-shadow: 0 20px 50px rgba(37, 43, 37, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
+      position: relative;
     }
-    .atelier-card-stitch {
+    .card-stitch {
       position: absolute;
       inset: 12px;
-      border: 1.5px dashed rgba(212, 175, 115, 0.35);
+      border: 1.5px dashed #947653;
       border-radius: 12px;
       pointer-events: none;
     }
 
-    /* Top Logo Inside Card */
-    .card-crest {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-    .card-crest-icon {
-      width: 60px;
-      height: 60px;
+    /* Big Iconic Scissors Emblem inside Card */
+    .card-scissors-badge {
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: rgba(212, 175, 115, 0.12);
-      border: 1px solid rgba(212, 175, 115, 0.4);
+      background: #252b25;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 24px rgba(37, 43, 37, 0.2);
+      border: 2px solid #947653;
     }
-    .card-crest-icon svg {
-      width: 30px;
-      height: 30px;
-      stroke: #d4af73;
+    .card-scissors-badge svg {
+      width: 86px;
+      height: 86px;
+      stroke: #f8f6f0;
+      fill: none;
     }
-    .card-brand-name {
+
+    .card-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 38px;
       font-weight: 700;
       letter-spacing: 0.16em;
-      color: #fbf9f4;
+      color: #252b25;
       line-height: 1;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
-    .card-brand-sub {
-      font-size: 12px;
-      font-weight: 700;
+    .card-sub {
+      font-size: 13px;
+      font-weight: 800;
       letter-spacing: 0.38em;
-      color: #d4af73;
       text-transform: uppercase;
-    }
-
-    /* Divider */
-    .card-divider {
-      width: 100%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(212, 175, 115, 0.4), transparent);
-      margin: 18px 0;
-    }
-
-    /* Highlights inside card */
-    .card-features {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      text-align: left;
+      color: #947653;
       margin-bottom: 24px;
     }
-    .card-feature-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #eae8df;
-      font-size: 13.5px;
-      font-weight: 500;
-    }
-    .card-feature-row svg {
-      width: 18px;
-      height: 18px;
-      color: #d4af73;
-      flex-shrink: 0;
-    }
 
-    /* Palette Swatches Bar */
-    .swatches-section {
-      text-align: left;
-      background: rgba(0, 0, 0, 0.22);
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .swatches-header {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #d4af73;
-      margin-bottom: 8px;
+    /* Fabric Color Swatches */
+    .swatches-strip {
+      width: 100%;
+      background: #f7f5ed;
+      border: 1px solid #dcded2;
+      border-radius: 10px;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .swatches-row {
+    .swatches-label {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #4c5841;
+    }
+    .swatches-group {
       display: flex;
-      align-items: center;
       gap: 10px;
     }
-    .swatch-circle {
-      width: 24px;
-      height: 24px;
+    .swatch {
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
-    .swatch-label {
-      font-size: 12px;
-      color: #a7ab9e;
-      margin-left: 6px;
-    }
-
-    /* Tape measure graphic footer strip */
-    .measuring-tape {
-      position: absolute;
-      bottom: 28px;
-      left: 38px;
-      right: 38px;
-      height: 20px;
-      background: rgba(212, 175, 115, 0.08);
-      border-top: 1px solid rgba(212, 175, 115, 0.25);
-      border-bottom: 1px solid rgba(212, 175, 115, 0.25);
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 0 10px;
-      z-index: 5;
-      font-size: 9px;
-      font-family: monospace;
-      color: rgba(212, 175, 115, 0.6);
-      letter-spacing: 0.15em;
+      border: 2px solid #ffffff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     }
   </style>
 </head>
 <body>
-  <div class="bg-texture"></div>
-  <div class="ambient-light"></div>
+  <div class="bg-paper"></div>
 
   <!-- Decorative Border Frame -->
   <div class="banner-frame"></div>
@@ -385,7 +323,7 @@
   <div class="frame-corner corner-bl"></div>
   <div class="frame-corner corner-br"></div>
 
-  <!-- Measuring Tape Bottom Accent -->
+  <!-- Real Tailor Measuring Tape Footer -->
   <div class="measuring-tape">
     <span>| · · · 1"</span><span>| · · · 2"</span><span>| · · · 3"</span>
     <span>| · · · 4"</span><span>| · · · 5"</span><span>| · · · 6"</span>
@@ -395,108 +333,75 @@
   </div>
 
   <div class="banner-content">
-    <!-- Left: Brand Message & Editorial -->
+    <!-- Left: Brand & Clean Info -->
     <div class="left-column">
-      <div class="brand-eyebrow">
-        <!-- Scissors icon -->
-        <svg class="scissors-icon" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M9.64 7.64c.23-.5.36-1.05.36-1.64 0-2.21-1.79-4-4-4S2 3.79 2 6s1.79 4 4 4c.59 0 1.14-.13 1.64-.36L10 12l-2.36 2.36C7.14 14.13 6.59 14 6 14c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4c0-.59-.13-1.14-.36-1.64L12 14l7 7h3v-1L9.64 7.64zM6 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm6-7.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5.5.22.5.5-.22.5-.5.5zM19 3l-6 6 2 2 7-7V3h-3z"/>
+      <div class="eyebrow-tag">
+        <svg viewBox="0 0 24 24" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"/>
+          <circle cx="6" cy="18" r="3"/>
+          <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+          <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+          <line x1="8.12" y1="8.12" x2="12" y2="12"/>
         </svg>
-        <span>The Everyday, Reconsidered · Wattala Studio</span>
+        <span>Bespoke Tailoring Studio</span>
       </div>
 
-      <h1 class="headline">
-        Made for you.<br>
-        <em>Worn your way.</em>
-      </h1>
+      <h1 class="brand-title">ROYJ TAILORS</h1>
+      <div class="brand-subtitle">Made for you. Worn your way.</div>
 
-      <p class="description">
-        Thoughtfully tailored essentials cut to your personal measurements. From our signature utility cargo trousers and custom shirts to everyday office wear and school uniforms.
-      </p>
-
-      <!-- Category Badges -->
-      <div class="categories-bar">
-        <div class="category-chip"><span class="dot"></span> Utility Cargo Trousers</div>
-        <div class="category-chip"><span class="dot"></span> Custom Fitted Shirts</div>
-        <div class="category-chip"><span class="dot"></span> Formal Office Trousers</div>
-        <div class="category-chip"><span class="dot"></span> Tailored Shorts</div>
-        <div class="category-chip"><span class="dot"></span> School Uniforms</div>
+      <!-- Minimal clean pills -->
+      <div class="pills-row">
+        <div class="pill"><span class="dot"></span> Custom Measurements</div>
+        <div class="pill"><span class="dot"></span> Bespoke Shirts & Trousers</div>
+        <div class="pill"><span class="dot"></span> School Uniforms</div>
       </div>
 
-      <!-- Studio Details Bar -->
-      <div class="studio-bar">
-        <div class="studio-item">
-          <span class="studio-label">Fitting & Enquiries</span>
-          <span class="studio-value">+94 77 553 2642</span>
+      <!-- Contact Info -->
+      <div class="contact-box">
+        <div class="contact-item">
+          <span class="contact-label">WhatsApp & Orders</span>
+          <span class="contact-value">+94 77 553 2642</span>
         </div>
-        <div class="studio-divider"></div>
-        <div class="studio-item">
-          <span class="studio-label">Studio Address</span>
-          <span class="studio-value">No. 176/17A Alwistown, Wattala</span>
+        <div class="contact-divider"></div>
+        <div class="contact-item">
+          <span class="contact-label">Location</span>
+          <span class="contact-value">Wattala, Sri Lanka</span>
         </div>
-        <div class="studio-divider"></div>
-        <div class="studio-item">
-          <span class="studio-label">Service</span>
-          <span class="studio-value">Islandwide Delivery</span>
+        <div class="contact-divider"></div>
+        <div class="contact-item">
+          <span class="contact-label">Service</span>
+          <span class="contact-value">Islandwide Delivery</span>
         </div>
       </div>
     </div>
 
-    <!-- Right: Atelier Seal & Craft Card -->
+    <!-- Right: Visual Tailor Craft Card -->
     <div class="right-column">
-      <div class="atelier-card">
-        <div class="atelier-card-stitch"></div>
+      <div class="visual-card">
+        <div class="card-stitch"></div>
 
-        <div class="card-crest">
-          <div class="card-crest-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="6" cy="6" r="3"/>
-              <circle cx="6" cy="18" r="3"/>
-              <line x1="20" y1="4" x2="8.12" y2="15.88"/>
-              <line x1="14.47" y1="14.48" x2="20" y2="20"/>
-              <line x1="8.12" y1="8.12" x2="12" y2="12"/>
-            </svg>
-          </div>
-          <div class="card-brand-name">ROYJ</div>
-          <div class="card-brand-sub">TAILORS · BESPOKE</div>
+        <div class="card-scissors-badge">
+          <svg viewBox="0 0 100 100" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="28" cy="72" r="14" stroke="#c8a774" stroke-width="5" />
+            <path d="M38 62 L80 18" stroke="#f8f6f0" stroke-width="5.5" />
+            <circle cx="72" cy="72" r="14" stroke="#c8a774" stroke-width="5" />
+            <path d="M62 62 L20 18" stroke="#f8f6f0" stroke-width="5.5" />
+            <circle cx="50" cy="49" r="6" fill="#c8a774" stroke="#252b25" stroke-width="2.5" />
+          </svg>
         </div>
 
-        <div class="card-divider"></div>
+        <div class="card-title">ROYJ</div>
+        <div class="card-sub">TAILORS · WATTALA</div>
 
-        <div class="card-features">
-          <div class="card-feature-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 6L9 17l-5-5"/>
-            </svg>
-            <span>Custom-cut to individual measurements</span>
-          </div>
-          <div class="card-feature-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 6L9 17l-5-5"/>
-            </svg>
-            <span>Heavy-duty cotton twill & Oxford weaves</span>
-          </div>
-          <div class="card-feature-row">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 6L9 17l-5-5"/>
-            </svg>
-            <span>Personal fitting appointments in Wattala</span>
-          </div>
-        </div>
-
-        <!-- Fabric Palette Swatches -->
-        <div class="swatches-section">
-          <div class="swatches-header">
-            <span>Signature Twill Palette</span>
-            <span>Hand-Selected</span>
-          </div>
-          <div class="swatches-row">
-            <div class="swatch-circle" style="background: #344b3c;" title="Forest Green"></div>
-            <div class="swatch-circle" style="background: #b4a07b;" title="Khaki Tan"></div>
-            <div class="swatch-circle" style="background: #343e50;" title="Navy Blue"></div>
-            <div class="swatch-circle" style="background: #62635f;" title="Charcoal"></div>
-            <div class="swatch-circle" style="background: #f4f2e9;" title="Ivory White"></div>
-            <span class="swatch-label">+ Custom Shades</span>
+        <!-- Color Palette -->
+        <div class="swatches-strip">
+          <span class="swatches-label">Custom Fabrics</span>
+          <div class="swatches-group">
+            <div class="swatch" style="background: #344b3c;" title="Forest Green"></div>
+            <div class="swatch" style="background: #b4a07b;" title="Khaki Tan"></div>
+            <div class="swatch" style="background: #343e50;" title="Navy Blue"></div>
+            <div class="swatch" style="background: #62635f;" title="Charcoal"></div>
+            <div class="swatch" style="background: #252b25;" title="Black"></div>
           </div>
         </div>
       </div>
